@@ -21,7 +21,28 @@ function NoData() {
 }
 
 function TaskTable() {
-  let [openModal,setOpenModal] = useState(false)
+  let [openModal,setOpenModal] = useState(false);
+
+  let [task,setTask] = useState([
+    
+])
+
+
+let createHandler = (item)=>{
+
+  let updateTask = [
+    ...task,
+    {
+      ...item,
+      id:task.length + 1
+    }
+
+  ]
+  setTask(updateTask.reverse())
+}
+
+
+
   return (
     <Container className="mt-5 mb-14">
      
@@ -47,17 +68,18 @@ function TaskTable() {
               <Table.HeadCell>action</Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
-              <TaskItem />
-              <TaskItem />
-              <TaskItem />
-              <NoData />
+              {task.length == 0 ? <NoData /> : task.map((item,index) => <TaskItem data={item} index={index}  key={item.id}/> ) }
+              
+              {/* <TaskItem />
+              <TaskItem /> */}
+              
             </Table.Body>
           </Table>
         </div>
       </div>
       {
         openModal &&
-      createPortal(<ModalPopup onClose={()=>{setOpenModal(false)}} onOpenModal={openModal}/>,document.getElementById('modal'))}
+      createPortal(<ModalPopup onCreate={createHandler} onClose={()=>{setOpenModal(false)}} onOpenModal={openModal}/>,document.getElementById('modal'))}
     </Container>
   );
 }

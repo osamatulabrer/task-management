@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
 import Container from "../../components/container";
-import logo from '../../images/logo.png'
 import { MdOutlineLightMode } from "react-icons/md";
+import logo1 from '../../images/logo1.png'
 
 function Header(){
-    let [theme,setTheme] = useState(false)
+    let [theme,setTheme] = useState(false);
+
+    let themeHandler = ()=>{
+        setTheme(!theme)
+     
+
+        
+    }
+
+
     useEffect(()=>{
-        document.documentElement.classList.toggle('dark')
-        // if(theme){
-        // }else(
-        //     document.documentElement.classList.remove('dark')
-        // )
+        if(theme){
+            document.documentElement.classList.add('dark')
+        }else(
+            document.documentElement.classList.remove('dark')
+        )
+        localStorage.setItem('darkTheme',theme)
     },[theme])
 
 
@@ -18,8 +28,8 @@ function Header(){
 
     return(
         <Container className="flex justify-between items-center py-5 border-b px-2 dark:border-[#666]">
-        <img  src={logo} alt="logo" />
-        <MdOutlineLightMode onClick={()=>{setTheme(!theme)}} className={`text-xl cursor-pointer ${theme && 'text-white'}`}/>
+        <img className="h-[90px]" src={logo1} alt="IMAGE" />
+        <MdOutlineLightMode onClick={themeHandler} className={`text-xl cursor-pointer ${theme && 'text-white'}`}/>
         </Container>
     )
 }
